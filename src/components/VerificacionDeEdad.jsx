@@ -1,14 +1,6 @@
-import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-
-// Esto es un componente con nombre camelname que se puede usar hubs
-const VerificacionDeEdad = () => {
-  // Estado...
-  // Ciclo de vida -> como interactua con el tiempo, es decir, actualiza el estado tantos segundo...
-  // JSX es como el HTML de mi aplicacion, no es HTML es JSX..
-  const [pagina,setPagina] = useState();
-  
+const VerificacionDeEdad = ({onSoyMayorClick, onSoyMenorClick}) => {
   return (
     <div className='d-flex align-items-center justify-content-center vh-100'>
       <div
@@ -28,8 +20,8 @@ const VerificacionDeEdad = () => {
           </Modal.Body>
 
           <Modal.Footer className="justify-content-center" >
-            <Button class="btn btn-light" size="lg">Adulto</Button>
-            <Button variant="dark" size="lg">Menor</Button>
+            <Button variant="light" size="lg" onClick={onSoyMayorClick}>Adulto</Button>
+            <Button variant="dark" size="lg" onClick={onSoyMenorClick}>Menor</Button>
           </Modal.Footer>
         </Modal.Dialog>
       </div>

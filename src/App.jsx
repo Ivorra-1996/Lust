@@ -1,16 +1,29 @@
-import { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
 import VerificacionDeEdad from './components/VerificacionDeEdad';
+import IniciarSesion from './components/Loggin/IniciarSesion';
 
-// Esto es un componente con nombre camelname que se puede usar hubs
 const App = () => {
-  // Estado...
-  // Ciclo de vida -> como interactua con el tiempo, es decir, actualiza el estado tantos segundo...
-  // JSX es como el HTML de mi aplicacion, no es HTML es JSX..
+  const [mostrarIniciarSesion, setMostrarIniciarSesion] = useState(false);
+
+  const handleVerificarEdad = (esMayor) => {
+    if (esMayor) {
+      setMostrarIniciarSesion(true);
+    } else {
+      window.location.href = 'https://www.google.com'; // Redirección a Google
+    }
+  };
 
   return (
-    <VerificacionDeEdad/>
+    <div>
+      {!mostrarIniciarSesion && (
+        <VerificacionDeEdad 
+        onSoyMayorClick={() => handleVerificarEdad(true)} 
+        onSoyMenorClick={() => handleVerificarEdad(false)}
+        />
+      )}
+      {mostrarIniciarSesion && <IniciarSesion />}
+    </div>
   );
-}
+};
 
-export default App
+export default App;
