@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import VerificacionDeEdad from './components/VerificacionDeEdad';
 import IniciarSesion from './components/Loggin/IniciarSesion';
+import '../css/HeaderYFooter.css';
 
 const App = () => {
   const [mostrarIniciarSesion, setMostrarIniciarSesion] = useState(false);
@@ -14,7 +15,15 @@ const App = () => {
   };
 
   return (
+    
     <div>
+      <div>
+        <div className="pink-bar-header"></div>
+      </div>
+      <div>
+        <div className="pink-bar-footer">© Lust.com, 2023</div>
+      </div>
+      <div>
       {!mostrarIniciarSesion && (
         <VerificacionDeEdad 
         onSoyMayorClick={() => handleVerificarEdad(true)} 
@@ -22,6 +31,8 @@ const App = () => {
         />
       )}
       {mostrarIniciarSesion && <IniciarSesion />}
+      </div>
+    
     </div>
   );
 };
