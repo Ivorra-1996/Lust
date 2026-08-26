@@ -81,7 +81,13 @@ const Home = () => {
               ) : (
                 <div className="neon-content-thumb" style={{ background: item.gradiente }}>
                   {item.badge && (
-                    <span className={`neon-badge ${item.badge === 'EN VIVO' ? 'neon-badge--live' : ''}`}>{item.badge}</span>
+                    <span
+                    className={`neon-badge ${
+                      item.badge === 'EN VIVO' ? 'neon-badge--live' : item.badge === 'NUEVO' ? 'neon-badge--new' : ''
+                    }`}
+                  >
+                    {item.badge}
+                  </span>
                   )}
                   <IconPlay />
                 </div>
