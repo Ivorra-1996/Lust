@@ -1,40 +1,115 @@
-import { Modal, Button } from 'react-bootstrap';
-import '../../css/modal.css';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import NeonHeader from './neon/NeonHeader';
+import NeonFooter from './neon/NeonFooter';
+import logo from '../../img/LogoLust.png';
+import '../../css/neon-theme.css';
 
-const VerificacionDeEdad = ({onSoyMayorClick, onSoyMenorClick}) => {
+const EDAD_MINIMA = 18;
+
+const formatearFecha = (valor) => {
+  const digitos = valor.replace(/\D/g, '').slice(0, 8);
+  const partes = [digitos.slice(0, 2), digitos.slice(2, 4), digitos.slice(4, 8)].filter(Boolean);
+  return partes.join('/');
+};
+
+const calcularEdad = (dia, mes, anio) => {
+  const d = parseInt(dia, 10);
+  const m = parseInt(mes, 10);
+  const y = parseInt(anio, 10);
+
+  if (!d || !m || !y || anio.length < 4) return null;
+
+  const fecha = new Date(y, m - 1, d);
+  const esFechaValida =
+    fecha.getFullYear() === y && fecha.getMonth() === m - 1 && fecha.getDate() === d;
+  if (!esFechaValida) return null;
+
+  const hoy = new Date();
+  let edad = hoy.getFullYear() - y;
+  const cumplioEsteAnio =
+    hoy.getMonth() > m - 1 || (hoy.getMonth() === m - 1 && hoy.getDate() >= d);
+  if (!cumplioEsteAnio) edad -= 1;
+
+  return edad;
+};
+
+const VerificacionDeEdad = () => {
+  const navigate = useNavigate();
+  const [fecha, setFecha] = useState('');
+  const [error, setError] = useState('');
+
+  const digitos = fecha.replace(/\D/g, '');
+  const dia = digitos.slice(0, 2);
+  const mes = digitos.slice(2, 4);
+  const anio = digitos.slice(4, 8);
+
+  const handleSubmit = (evento) => {
+    evento.preventDefault();
+    const edad = calcularEdad(dia, mes, anio);
+
+    if (edad === null) {
+      setError('Ingresá una fecha de nacimiento válida.');
+      return;
+    }
+
+    if (edad < EDAD_MINIMA) {
+      window.location.href = 'https://www.google.com';
+      return;
+    }
+
+    navigate('/login');
+  };
+
   return (
-   
-      <div
-        className="modal show  d-flex align-items-center justify-content-center vh-100"
-        style={{ display: 'block', position: 'initial',  }}
-       
-      >
-        <div  className="modal-dialog modal-lg modal-dialog-centered">
-          <div className="modal-content bg-black"  style={{ borderRadius: '52px' }}>
-            <div className="text-center">
-              <img src='../../img/LogoLust.png' alt="Logo de Lust" height={200} />
-            </div>
-            <Modal.Body>
-              <div className="fw-bold text-center">
-              <p className="fs-1 text-warning">Verificación de edad 🧐</p>
-              <p className='text-white'>
-                Este sitio web contiene material restringido a menores de edad, que incluye desnudez y representaciones explícitas de actividad sexual. Al entrar, afirma que tiene por lo menos 18 años de edad o mayor en la jurisdicción desde que está accediendo el sitio web para adultos y que da consentimiento en ver contenido sexualmente explícito.
-              </p>
-              </div>
-              <div className="d-grid gap-5 d-md-flex justify-content-center text-center">
-                <Button className="btn btn-light btn-lg w-80 text-warning font-arial fw-bold" onClick={onSoyMayorClick}>
-                  Adulto
-                </Button>
-                <Button className="btn btn-light btn-lg w-80 text-warning font-arial fw-bold" onClick={onSoyMenorClick}>
-                  Menor
-                </Button>
-              </div>
-            </Modal.Body> 
-          </div>
-        </div>
-      </div>
-    
-  );
-}
+    <div className="neon-page">
+      <NeonHeader />
 
-export default VerificacionDeEdad
+      <main className="neon-main">
+        <div className="neon-hero">
+          <span className="neon-logo-badge neon-logo-badge--lg">
+            <img src={logo} alt="Logo de Lust" />
+          </span>
+          <span className="neon-eyebrow">SOLO PARA MAYORES DE 18</span>
+          <h1 className="neon-heading">
+            Antes de entrar, <span className="neon-heading__accent">confirmemos tu edad</span>
+          </h1>
+          <p className="neon-subtext">
+            Este sitio contiene contenido explícito para adultos. Ingresá tu fecha de nacimiento
+            para verificar tu edad.
+          </p>
+
+          <form className="neon-card" onSubmit={handleSubmit}>
+            <div className="neon-field">
+              <label htmlFor="fechaNacimiento">Fecha de nacimiento</label>
+              <input
+                id="fechaNacimiento"
+                className="neon-input neon-input--center"
+                type="text"
+                inputMode="numeric"
+                maxLength={10}
+                placeholder="DD/MM/AAAA"
+                value={fecha}
+                onChange={(e) => setFecha(formatearFecha(e.target.value))}
+                required
+              />
+            </div>
+
+            {error && <p className="neon-error">{error}</p>}
+
+            <button type="submit" className="neon-btn neon-btn--primary">
+              Continuar
+            </button>
+            <p className="neon-hint">
+              Verificamos tu edad de forma segura. No almacenamos tu fecha de nacimiento.
+            </p>
+          </form>
+        </div>
+      </main>
+
+      <NeonFooter />
+    </div>
+  );
+};
+
+export default VerificacionDeEdad;

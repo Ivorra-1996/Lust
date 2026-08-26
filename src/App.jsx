@@ -1,39 +1,37 @@
-import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import VerificacionDeEdad from './components/VerificacionDeEdad';
 import IniciarSesion from './components/Loggin/IniciarSesion';
-import '../css/HeaderYFooter.css';
+import RegistrarUsuario from './components/RegistrarUsuario';
+import OlvidasteTuContraseña from './components/Loggin/OlvidasteTuContraseña';
+import Home from './components/Home';
+import Explorar from './components/Explorar';
+import Perfil from './components/Perfil';
+import Ficha from './components/Ficha';
+import Suscripcion from './components/Suscripcion';
+import Mensajes from './components/Mensajes';
+import MiCuenta from './components/MiCuenta';
+import Notificaciones from './components/Notificaciones';
+import Legal from './components/Legal';
+import NotFound from './components/NotFound';
 
 const App = () => {
-  const [mostrarIniciarSesion, setMostrarIniciarSesion] = useState(false);
-
-  const handleVerificarEdad = (esMayor) => {
-    if (esMayor) {
-      setMostrarIniciarSesion(true);
-    } else {
-      window.location.href = 'https://www.google.com'; // Redirección a Google
-    }
-  };
-
   return (
-    
-    <div>
-      <div>
-        <div className="pink-bar-header"></div>
-      </div>
-      <div>
-        <div className="pink-bar-footer">© Lust.com, 2023</div>
-      </div>
-      <div>
-      {!mostrarIniciarSesion && (
-        <VerificacionDeEdad 
-        onSoyMayorClick={() => handleVerificarEdad(true)} 
-        onSoyMenorClick={() => handleVerificarEdad(false)}
-        />
-      )}
-      {mostrarIniciarSesion && <IniciarSesion />}
-      </div>
-    
-    </div>
+    <Routes>
+      <Route path="/" element={<VerificacionDeEdad />} />
+      <Route path="/login" element={<IniciarSesion />} />
+      <Route path="/registro" element={<RegistrarUsuario />} />
+      <Route path="/recuperar-contrasena" element={<OlvidasteTuContraseña />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/explorar" element={<Explorar />} />
+      <Route path="/perfil" element={<Perfil />} />
+      <Route path="/contenido" element={<Ficha />} />
+      <Route path="/suscripcion" element={<Suscripcion />} />
+      <Route path="/mensajes" element={<Mensajes />} />
+      <Route path="/mi-cuenta" element={<MiCuenta />} />
+      <Route path="/notificaciones" element={<Notificaciones />} />
+      <Route path="/terminos" element={<Legal />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 
