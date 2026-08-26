@@ -7,9 +7,9 @@ const SECCIONES = ['Perfil', 'Suscripción', 'Pagos', 'Notificaciones', 'Privaci
 
 const MiCuenta = () => {
   const [seccion, setSeccion] = useState('Perfil');
-  const [nombre, setNombre] = useState('Camila Fernández');
-  const [usuario, setUsuario] = useState('@camifernandez');
-  const [correo, setCorreo] = useState('cami@correo.com');
+  const [nombre, setNombre] = useState('Matrix Lust');
+  const [usuario, setUsuario] = useState('@matrix');
+  const [correo, setCorreo] = useState('matrix@correo.com');
 
   const handleGuardar = (evento) => {
     evento.preventDefault();

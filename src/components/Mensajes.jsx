@@ -4,7 +4,7 @@ import '../../css/neon-theme.css';
 
 const CONVERSACIONES_INICIALES = [
   {
-    id: 'valentina',
+    id: '042',
     nombre: '@creator_042',
     gradiente: 'linear-gradient(135deg,#FF3DAE,#8B5CF6)',
     mensajes: [
@@ -14,19 +14,19 @@ const CONVERSACIONES_INICIALES = [
     ],
   },
   {
-    id: 'bianca',
+    id: '118',
     nombre: '@creator_118',
     gradiente: 'linear-gradient(135deg,#8B5CF6,#3D1B6B)',
     mensajes: [{ de: 'ella', texto: 'Subí contenido nuevo hoy' }],
   },
   {
-    id: 'noa',
+    id: '263',
     nombre: '@creator_263',
     gradiente: 'linear-gradient(135deg,#FF6EC4,#4A1E8C)',
     mensajes: [{ de: 'el', texto: 'Empezando el vivo en breve' }],
   },
   {
-    id: 'mia',
+    id: '509',
     nombre: '@creator_509',
     gradiente: 'linear-gradient(135deg,#4A1E8C,#FF3DAE)',
     mensajes: [{ de: 'ella', texto: '¡Hola! ¿Cómo estás?' }],
